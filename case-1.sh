@@ -26,3 +26,4 @@ while true; do
             echo "Si us plau, respon 'Sí' o 'No'." ;;
     esac
 done
+# Si tenemos problemas para ejecutar el enlace pondremos esto en el terminal"xhost +si:localuser:root"
