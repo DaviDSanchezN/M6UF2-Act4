@@ -1,28 +1,27 @@
 #!/bin/bash
 
-# Función para comprobar el estado de un servidor remoto
+# Función para comprobar el estado de un servidor remoto y registrar el resultado
 check_server_status() {
-    local server=$1  # Obtener el nombre del servidor como parámetro
-    local status    # Variable para almacenar el estado del servidor
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")  # Obtener la marca de tiempo actual
+    local server=$1
+    local status
 
     # Realizar la comprobación del estado del servidor mediante un ping
     if ping -c 1 "$server" &> /dev/null; then
-        status="ACTIU"  # Si el ping es exitoso, el servidor está activo
+        status="ACTIU"
     else
-        status="INACTIU"  # Si el ping falla, el servidor está inactivo
+        status="INACTIU"
     fi
 
     # Registrar el resultado en el archivo de registro
-    echo "$timestamp - El servidor $server está $status" >> registro_servidores.txt
+    echo "$(date +"%Y-%m-%d %H:%M:%S") - El servidor $server está $status" >> registro_servidores.txt
 }
 
-# Lista de servidores remotos que se van a comprobar
-servidores=("servidor1" "servidor2" "servidor3")
+# Lista de servidores remotos a comprobar
+servidores=("www.google.com" "www.ies-sabadell.cat" "www.youtube.com")
 
-# Comprobar el estado de cada servidor en la lista y registrar el resultado
+# Comprobar el estado de cada servidor en la lista
 for servidor in "${servidores[@]}"; do
-    check_server_status "$servidor"  # Llamar a la función para comprobar el estado del servidor actual
+    check_server_status "$servidor"
 done
 
 # Imprimir un mensaje indicando que la comprobación del estado de los servidores ha finalizado
